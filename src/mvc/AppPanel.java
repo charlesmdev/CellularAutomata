@@ -95,4 +95,19 @@ public class AppPanel extends JPanel implements ActionListener, Subscriber {
     public void update() {
 
     }
+    //Adds ControlPanel and buttons
+    public class ControlPanel extends JPanel {
+
+        public ControlPanel() {
+            setBackground(Color.LIGHT_GRAY);
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        }
+        public void addButton(JButton button) {
+            JPanel buttonPanel = new JPanel();
+            //button.addActionListener(AppPanel.this); //Maybe not needed
+            buttonPanel.add(button);
+            add(button);
+
+        }
+    }
 }
