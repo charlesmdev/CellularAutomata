@@ -4,31 +4,35 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class AppPanel extends JPanel implements ActionListener, Subscriber {
 
-    Model model;
-    ControlPanel controls;
-    View view;
-    AppFactory factory;
-
-    private JButton change;
+    protected Model model;
+    protected JPanel controlPanel;
+    protected View view;
+    protected AppFactory factory;
+    private JFrame frame;
+    public static int FRAME_WIDTH = 500;
+    public static int FRAME_HEIGHT = 300;
 
     public AppPanel (AppFactory factory) {
-        controls = new ControlPanel();
-        view = new View(model);
-        this.setLayout((new GridLayout(1,2)));
-        this.add(controls);
-        this.add(view);
-        model.subscribe(view);
+        this.factory = factory;
+        model = factory.makeModel();
+        view = factory.makeView(model);
+        view.setBackground((Color.GRAY));
+        controlPanel = new JPanel();
+        controlPanel.setBackground((Color.PINK));
+        setLayout((new GridLayout(1,2)));
+        add(controlPanel);
+        add(view);
+        model.subscribe(this);
 
-        change = new JButton("Change");
-        change.addActionListener(this);
-        controls.add(change);
+        frame = new SafeFrame();
+        Container cp = frame.getContentPane();
+        cp.add(this);
+        frame.setJMenuBar(createMenuBar());
+        frame.setTitle(factory.getTitle());
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
     }
 
     public JMenuBar createMenuBar() {
@@ -42,37 +46,51 @@ public class AppPanel extends JPanel implements ActionListener, Subscriber {
         return result;
     }
     @Override
-    public void actionPerformed(ActionEvent e) {
-        String cmmd = e.getActionCommand();
+    public void actionPerformed(ActionEvent ae) {
         try {
-            switch (cmmd) {
-                case "Save": {
-                    String fileName = Utilities.getFileName((String) null, false);
-                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
-                    os.writeObject(this.model);
-                    os.close();
-                    break;
-                }
-
-                case "Open": {
-                    if (Utilities.confirm("Confirm: Unsaved changes will be lost.")) {
-                        String fileName = Utilities.getFileName((String) null, true);
-                        ObjectInputStream is = new ObjectInputStream(new FileInputStream(fileName));
-                        model = (Model) is.readObject();
-                        view.setModel(model);
-                        is.close();
-                    }
-                    break;
-                }
-
-                case "Quit": {
-                    System.exit(0);
-                    break;
-                }
+            String cmmd = ae.getActionCommand();
+            if(cmmd.equals("Save")) {
+                Utilities.save(model, false);
             }
-        } catch (Exception ex) {
-            Utilities.error(ex);
+            else if (cmmd.equals("SaveAs")) {
+                Utilities.save(model, true);
+            }
+            else if (cmmd.equals("Open")) {
+                Model newModel = Utilities.open(model);
+            }
+            else if (cmmd.equals("New")) {
+                Utilities.saveChanges(model);
+                setModel(factory.makeModel());
+                model.setUnsavedChanges(false);
+            }
+            else if (cmmd.equals("Quit")) {
+                Utilities.saveChanges(model);
+                System.exit(0);
+            }
         }
+        catch (Exception e){
+            Utilities.error(e);
+        }
+    }
+
+    public void display() {
+        frame.setVisible(true);
+    }
+    @Override
+    public void update() {
+        // keep empty
+    }
+
+    public void setModel(Model newModel) {
+        this.model.unsubscribe(this);
+        this.model = newModel;
+        this.model.subscribe(this);
+        view.setModel(this.model);
+        model.changed();
+    }
+
+    public Model getModel() {
+        return model;
     }
 
     public static void main(String[] args) {
@@ -80,20 +98,6 @@ public class AppPanel extends JPanel implements ActionListener, Subscriber {
         panel.display();
     }
 
-    public void display() {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container cp = frame.getContentPane();
-        cp.add(this);
-        frame.setJMenuBar(this.createMenuBar());
-        frame.setTitle("Cellular Automata");
-        frame.setSize(500,300);
-        frame.setVisible(true);
-    }
-    @Override
-    public void update() {
-
-    }
     //Adds ControlPanel and buttons
     public class ControlPanel extends JPanel {
 
