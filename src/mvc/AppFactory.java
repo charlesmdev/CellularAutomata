@@ -4,7 +4,7 @@ public interface AppFactory {
 
     public Model makeModel();
 
-    public View makeView();
+    public View makeView(Model model);
     public String getTitle();
     public String[] getHelp();
     public String about();
