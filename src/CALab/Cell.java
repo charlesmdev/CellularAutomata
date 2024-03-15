@@ -1,5 +1,6 @@
 package CALab;
 
+import java.awt.*;
 import java.util.*;
 import java.io.*;
 import mvc.*;
@@ -21,11 +22,24 @@ abstract class Cell extends Publisher implements Serializable {
 			Starting at a random position in the array search for a neighbor without a partner
 			Make the first such neighbor (if any) the partner and set its partner field to this
 			*/
+            Random random = new Random();
+            this.partner = null;
+            Cell[] cellArray = neighbors.toArray(new Cell[neighbors.size()]);
+            int randomIndex = random.nextInt(cellArray.length);
+            for (int i = 0; i < cellArray.length; i++) {
+                int index = (randomIndex + i) % cellArray.length; // Wrap around the array if necessary
+                Cell neighbor = cellArray[index];
+                if (neighbor.partner == null) {
+                    // Make the first such neighbor (if any) the partner and set its partner field to this
+                    this.partner = neighbor;
+                    neighbor.partner = this;
+                    break; // Exit loop once partner is found
+                }
+            }
         }
-
     }
 
-    public void unpartner() {
+    public void unPartner() {
         if (partner != null) {
             if (partner.partner != null) {
                 partner.partner = null;
@@ -33,7 +47,14 @@ abstract class Cell extends Publisher implements Serializable {
             partner = null;
         }
     }
+    //TODO: Add getColor(); and getStatus(); method
 
+    public Color getColor() {
+        return Color.GREEN;
+    }
+    public int getStatus() {
+        return 0;
+    }
     // observer neighbors' states
     public abstract void observe();
     // interact with a random neighbor

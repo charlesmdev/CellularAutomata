@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public abstract class Model extends Publisher implements Serializable {
 
-    Boolean unsavedChanges = false;
-    String fileName = null;
+    private Boolean unsavedChanges = false;
+    private String fileName = null;
 
     // TODO: All methods below
     public boolean getUnsavedChanges() {
@@ -25,6 +25,8 @@ public abstract class Model extends Publisher implements Serializable {
     }
 
     protected void changed() {
+        //Implemented professor's changes
+        this.unsavedChanges = true;
         notifySubscribers();
     }
 }
