@@ -67,6 +67,10 @@ public class AppPanel extends JPanel implements ActionListener, Subscriber {
                 Utilities.saveChanges(model);
                 System.exit(0);
             }
+            else if(cmmd.equals("Change")) {
+                Command changeCommand = factory.makeEditCommand(model, cmmd);
+                changeCommand.execute();
+            }
         }
         catch (Exception e){
             Utilities.error(e);

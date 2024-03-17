@@ -13,7 +13,7 @@ public abstract class Grid extends Model {
     public int getDim() { return dim; }
     public int getTime() { return time; }
     public Cell getCell(int row, int col) { return cells[row][col]; }
-    public abstract Cell makeCell(boolean uniform);
+    public abstract Cell makeCell(boolean uniform); //Uniform?
 
 
     public Grid(int dim) {
@@ -24,8 +24,15 @@ public abstract class Grid extends Model {
     public Grid() { this(20); }
 
     protected void populate() {
-        // 1. use makeCell to fill in cells
+        // 1. use makeCell to fill in cells.
         // 2. use getNeighbors to set the neighbors field of each cell
+        for (int row = 0; row < cells.length; row++) {
+            for (int col = 0; col < cells[row].length; col++) {
+                cells[row][col] = makeCell(true); // True or false?
+                //Finish getNeighbors
+                cells[row][col].setNeighbors(getNeighbors()); //Add parameters after getNeighbors() method implemented
+            }
+        }
     }
 
     // called when Populate button is clicked
@@ -36,6 +43,7 @@ public abstract class Grid extends Model {
             // set the status of each cell to 0 (dead)
         }
         // notify subscribers
+        notifySubscribers();
     }
 
 
@@ -46,14 +54,10 @@ public abstract class Grid extends Model {
         Tricky part: cells in row/col 0 or dim - 1.
         The asker is not a neighbor of itself.
         */
+        Set<Cell> neighbors = new HashSet<>();
+        return null;
     }
-
-    // overide these
-    public int getStatus() { return 0; }
-    public Color getColor() { return Color.GREEN; }
-
     // cell phases:
-
     public void observe() {
         // call each cell's observe method and notify subscribers
     }
