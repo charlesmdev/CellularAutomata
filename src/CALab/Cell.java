@@ -8,6 +8,8 @@ import mvc.*;
 abstract class Cell extends Publisher implements Serializable {
 
     protected int row = 0, col = 0;
+    protected int status = 0;
+    protected Color color = Color.GREEN;
     protected Set<Cell> neighbors = new HashSet<Cell>();
     protected Grid myGrid = null;
     protected Cell partner = null;
@@ -50,15 +52,24 @@ abstract class Cell extends Publisher implements Serializable {
     //TODO: Add getColor(); and getStatus(); method
 
     public Color getColor() {
-        return Color.GREEN;
+        return color;
     }
     public int getStatus() {
-        return 0;
+        return status;
+    }
+    public void setNeighbors(Set<Cell> neighbors) { this.neighbors = neighbors; }
+    public void setStatus(int status) { this.status = status; }
+    public int getCol() {
+        return this.col;
+    }
+    public int getRow() {
+        return this.row;
     }
     // observer neighbors' states
     public abstract void observe();
     // interact with a random neighbor
     public abstract void interact();
+    public abstract void interact(Cell ranNeighbor);
     // update my state
     public abstract void update();
     // set status to status + 1 mod whatever

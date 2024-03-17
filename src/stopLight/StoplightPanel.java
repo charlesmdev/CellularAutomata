@@ -1,11 +1,9 @@
 package stopLight;//For some reason the package name was stoplightSim2
 
-import java.awt.*;
-import javax.swing.*;
-
 import mvc.*;
 
-
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 public class StoplightPanel extends AppPanel {
     private JButton change;
     public StoplightPanel(AppFactory factory) {
@@ -20,6 +18,9 @@ public class StoplightPanel extends AppPanel {
         AppPanel panel = new StoplightPanel(factory);
         panel.display();
     }
-
+    @Override
+    public void update() {
+        view.repaint();
+    }
 }
 

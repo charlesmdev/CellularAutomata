@@ -42,4 +42,3 @@ public class CellView extends JButton implements ActionListener, Subscriber {
         setBorder(BorderFactory.createLineBorder(Color.black)); // needed?
         setText("" + myCell.getStatus());
     }
-}
