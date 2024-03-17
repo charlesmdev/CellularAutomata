@@ -18,6 +18,20 @@ public class GridView extends View {
         //set cell.row and cell.col here
         cell.setRow(row);
         cell.setCol(col);
+//        Grid gridModel = (Grid) model;
+//        int dim = gridModel.getDim();
+//        cellViews = new CellView[dim][dim]; // Initialize the cellViews array
+//
+//        // Iterate over each cell in the grid and create a CellView for it
+//        for (int row = 0; row < dim; row++) {
+//            for (int col = 0; col < dim; col++) {
+//                CellView cell = new CellView(gridModel.getCell(row, col));
+//                cellViews[row][col] = cell;
+//                // Set cell.row and cell.col here
+//                cell.setRow(row);
+//                cell.setCol(col);
+//            }
+//        }
     }
 
     public void update() {
