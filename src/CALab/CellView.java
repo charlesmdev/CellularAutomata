@@ -8,6 +8,8 @@ import mvc.*;
 
 public class CellView extends JButton implements ActionListener, Subscriber {
     private Cell myCell;
+    private int row;
+    private int col;
 
     public CellView(Cell c) {
         myCell = c;
@@ -15,23 +17,29 @@ public class CellView extends JButton implements ActionListener, Subscriber {
         this.addActionListener(this);
     }
 
-    public CellView() { this(null); }
+    public CellView() {
+        this(null);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         myCell.nextState();
-        // call update needed?
+        update();
+    }
+
+    public void setRow (int row) {
+        this.row = row;
+    }
+
+    public void setCol (int col) {
+        this.col = col;
     }
 
     // called by notifySubscribers and GridView.update
-    public void update(String msg, Object oldState, Object newState) {
+    @Override
+    public void update() {
         setBackground(myCell.getColor());
         setBorder(BorderFactory.createLineBorder(Color.black)); // needed?
         setText("" + myCell.getStatus());
-    }
-    //IS this correct?
-    @Override
-    public void update() {
-
     }
 }
