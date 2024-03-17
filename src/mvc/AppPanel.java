@@ -35,6 +35,9 @@ public class AppPanel extends JPanel implements ActionListener, Subscriber {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
     }
 
+    public AppPanel() {
+        this(null);
+    }
     public JMenuBar createMenuBar() {
         JMenuBar result = new JMenuBar();
         JMenu fileMenu = Utilities.makeMenu("File", new String[] {"New", "Save", "Open", "Quit"}, this);
