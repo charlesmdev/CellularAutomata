@@ -1,6 +1,6 @@
 package mvc;
 
-import javax.swing.*;
+//import javax.swing.*;
 
 public interface Subscriber {
 
