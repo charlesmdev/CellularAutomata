@@ -30,7 +30,6 @@ public class CellView extends JButton implements ActionListener, Subscriber {
         setText("" + myCell.getStatus());
     }
     //IS this correct?
-    @Override
     public void update() {
 
     }

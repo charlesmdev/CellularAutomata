@@ -9,6 +9,6 @@ public interface AppFactory {
     public String[] getHelp();
     public String about();
     public String[] getEditCommands();
-    public Command makeEditCommand(String name);
+    public Command makeEditCommand(Model model, String name);
 
 }
