@@ -30,7 +30,7 @@ public abstract class Grid extends Model {
             for (int col = 0; col < cells[row].length; col++) {
                 cells[row][col] = makeCell(true); // True or false?
                 //Finish getNeighbors
-                cells[row][col].setNeighbors(getNeighbors()); //Add parameters after getNeighbors() method implemented
+                cells[row][col].setNeighbors(getNeighbors(cells[row][col], 1)); //Add parameters after getNeighbors() method implemented
             }
         }
     }
@@ -55,11 +55,29 @@ public abstract class Grid extends Model {
         The asker is not a neighbor of itself.
         */
         Set<Cell> neighbors = new HashSet<>();
-        return null;
+        int askerRow = asker.getRow();
+        int askerCol = asker.getCol();
+        // Loop through cells within the specified radius
+        for (int row = Math.max(0, askerRow - radius); row <= Math.min(dim - 1, askerRow + radius); row++) {
+            for (int col = Math.max(0, askerCol - radius); col <= Math.min(dim - 1, askerCol + radius); col++) {
+                // Exclude the asker itself from the neighbors
+                if (row != askerRow || col != askerCol) {
+                    neighbors.add(cells[row][col]);
+                }
+            }
+        }
+        return neighbors;
     }
     // cell phases:
     public void observe() {
         // call each cell's observe method and notify subscribers
+        for (int row = 0; row < cells.length; row++) {
+            for (int col = 0; col < cells[row].length; col++) {
+                if (cells[row][col] != null) {
+                    cells[row][col].observe();
+                    notifySubscribers();
+                }
+            }
     }
 
     public void interact() {
