@@ -10,9 +10,18 @@ public abstract class Grid extends Model {
     protected int dim = 20;
     protected Cell[][] cells;
 
-    public int getDim() { return dim; }
-    public int getTime() { return time; }
-    public Cell getCell(int row, int col) { return cells[row][col]; }
+    public int getDim() {
+        return dim;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public Cell getCell(int row, int col) {
+        return cells[row][col];
+    }
+
     public abstract Cell makeCell(boolean uniform); //Uniform?
 
 
@@ -21,7 +30,10 @@ public abstract class Grid extends Model {
         cells = new Cell[dim][dim];
         populate();
     }
-    public Grid() { this(20); }
+
+    public Grid() {
+        this(20);
+    }
 
     protected void populate() {
         // 1. use makeCell to fill in cells.
@@ -68,6 +80,7 @@ public abstract class Grid extends Model {
         }
         return neighbors;
     }
+
     // cell phases:
     public void observe() {
         // call each cell's observe method and notify subscribers
@@ -78,19 +91,44 @@ public abstract class Grid extends Model {
                     notifySubscribers();
                 }
             }
+        }
     }
-
-    public void interact() {
-        // ???
+    //During the (optional) interaction phase each cell interacts with a random neighbor.
+    public void interact () {
+            // ???
+        Random random = new Random();
+        Set<Cell> neighbors = null;
+        // Iterate through each cell in the grid
+        for (int row = 0; row < cells.length; row++) {
+            for (int col = 0; col < cells[row].length; col++) {
+                Cell currentCell = cells[row][col];
+                // Get the list of neighbors for the current cell
+                neighbors = getNeighbors(currentCell, 1);
+                // If the current cell has neighbors
+                if (!neighbors.isEmpty()) {
+                    // Choose a random neighbor
+                    int randomIndex = random.nextInt(neighbors.size());
+                    Cell ranNeighbor = (Cell) neighbors.toArray()[randomIndex];
+                    // Perform interaction between the current cell and the random neighbor
+                    currentCell.interact(ranNeighbor); // interact() method in cell takes randomNeighbor as param
+                }
+            }
+        }
     }
-
-    public void update() {
-        // ???
+    //In the update phase each cell changes its state according to information gathered in the previous phases.
+    //Different CAs and different cell types within a CA may have different rules for how to update themselves.
+    public void update () {
+            // ???
+        for (int row = 0; row < cells.length; row++) {
+            for (int col = 0; col < cells[row].length; col++) {
+                cells[row][col].update();
+            }
+        }
+        notifySubscribers();
     }
-
-    public void updateLoop(int cycles) {
+    public void updateLoop ( int cycles){
         observe();
-        for(int cycle = 0; cycle < cycles; cycle++) {
+        for (int cycle = 0; cycle < cycles; cycle++) {
             interact();
             update();
             observe();

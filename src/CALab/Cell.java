@@ -68,6 +68,7 @@ abstract class Cell extends Publisher implements Serializable {
     public abstract void observe();
     // interact with a random neighbor
     public abstract void interact();
+    public abstract void interact(Cell ranNeighbor);
     // update my state
     public abstract void update();
     // set status to status + 1 mod whatever
