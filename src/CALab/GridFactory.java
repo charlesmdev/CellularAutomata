@@ -5,8 +5,8 @@ import mvc.*;
 public class GridFactory implements AppFactory {
     public Model makeModel() {return null;}
 
-    public View makeView(Model model) {
-        return new GridView(model);
+    public View makeView(Model model, int row, int col) {
+        return new GridView(model, row, col);
     }
 
     public String getTitle() { return "CALab"; }
