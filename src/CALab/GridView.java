@@ -8,7 +8,11 @@ public class GridView extends View {
 
     private CellView cellViews[][];
 
-    public GridView(Model model, int row, int col) {
+    public GridView(Model model) {
+        Grid gridModel = (Grid) model;
+        int row = gridModel.getDim();
+        int col = gridModel.getDim();
+
         CellView cell = new CellView(((Grid)model).getCell(row, col));
         cellViews[row][col] = cell;
         //set cell.row and cell.col here
