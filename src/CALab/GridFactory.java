@@ -23,7 +23,7 @@ public class GridFactory implements AppFactory {
         return new String[] {"Run1", "Run50", "Populate", "Clear"};
     }
 
-    public Command makeEditCommand(Model model, String type, Object source) {
+    public Command makeEditCommand(Model model, String type) { //Removed Object Source param, not needed
         return switch (type) {
             case "Run1" -> new RunCommand(model, 1);
             case "Run50" -> new RunCommand(model, 50);

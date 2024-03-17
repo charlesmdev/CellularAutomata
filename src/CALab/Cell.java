@@ -58,10 +58,18 @@ abstract class Cell extends Publisher implements Serializable {
         return status;
     }
     public void setNeighbors(Set<Cell> neighbors) { this.neighbors = neighbors; }
+    public void setStatus(int status) { this.status = status; }
+    public int getCol() {
+        return this.col;
+    }
+    public int getRow() {
+        return this.row;
+    }
     // observer neighbors' states
     public abstract void observe();
     // interact with a random neighbor
     public abstract void interact();
+    public abstract void interact(Cell ranNeighbor);
     // update my state
     public abstract void update();
     // set status to status + 1 mod whatever
