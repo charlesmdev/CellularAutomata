@@ -50,12 +50,24 @@ public abstract class Grid extends Model {
     // called when Populate button is clicked
     public void repopulate(boolean randomly) {
         if (randomly) {
+            Random random = new Random();
             // randomly set the status of each cell
-        } else {
-            // set the status of each cell to 0 (dead)
+            for (int row = 0; row < cells.length; row++) {
+                for (int col = 0; col < cells[row].length; col++) {
+                    int ranStatus = random.nextInt(2) + 0;
+                    cells[row][col].setStatus(ranStatus);
+                }
+            }
+        }else{
+                // set the status of each cell to 0 (dead)
+                for (int row = 0; row < cells.length; row++) {
+                    for (int col = 0; col < cells[row].length; col++) {
+                        cells[row][col].setStatus(0);
+                    }
+            }
+            // notify subscribers
+            notifySubscribers();
         }
-        // notify subscribers
-        notifySubscribers();
     }
 
 
@@ -78,7 +90,7 @@ public abstract class Grid extends Model {
                 }
             }
         }
-        return neighbors;
+        return neighbors; //Unsure if notifySubscribers(); should be here
     }
 
     // cell phases:
@@ -114,6 +126,7 @@ public abstract class Grid extends Model {
                 }
             }
         }
+        notifySubscribers(); //Unsure if notifySubscribers(); should be here
     }
     //In the update phase each cell changes its state according to information gathered in the previous phases.
     //Different CAs and different cell types within a CA may have different rules for how to update themselves.
@@ -124,7 +137,7 @@ public abstract class Grid extends Model {
                 cells[row][col].update();
             }
         }
-        notifySubscribers();
+        notifySubscribers(); //Unsure if notifySubscribers(); should be here
     }
     public void updateLoop ( int cycles){
         observe();

@@ -58,6 +58,7 @@ abstract class Cell extends Publisher implements Serializable {
         return status;
     }
     public void setNeighbors(Set<Cell> neighbors) { this.neighbors = neighbors; }
+    public void setStatus(int status) { this.status = status; }
     public int getCol() {
         return this.col;
     }
