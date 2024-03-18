@@ -13,6 +13,9 @@ public class GridPanel extends AppPanel {
         controlPanel.add(change);
     }
 
+    public GridPanel() {
+        this(null);
+    }
     @Override
     public void update() {
 
