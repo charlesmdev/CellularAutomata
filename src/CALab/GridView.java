@@ -49,6 +49,13 @@ public GridView(Model model) {
             cellViews[row][col] = cellView;
         }
     }
+
+    setLayout(new GridLayout(cellViews.length, cellViews[0].length));
+    for (CellView[] row : cellViews) {
+        for (CellView cellView : row) {
+            add(cellView);
+        }
+    }
 }
     public CellView[][] getCellViews() {
         return cellViews;
