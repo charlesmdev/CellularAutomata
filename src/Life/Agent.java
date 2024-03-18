@@ -3,7 +3,7 @@ package Life;
 import CALab.Cell;
 public class Agent extends Cell {
     private int ambience = 8;
-    //TODO: During the update phase each cell updates its status.
+    //TODO: During the update phase each cell updates its status. Updates my state?
     @Override
     public void update() {
 
