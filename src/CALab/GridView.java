@@ -9,8 +9,8 @@ public class GridView extends View {
     private CellView cellViews[][];
 
     public GridView(Model model) {
-        Grid gridModel = (Grid) model;
-        int row = gridModel.getDim();
+        Grid gridModel = (Grid) model; // Model is null
+        int row = gridModel.getDim(); // Model is null, returns NullPointerException
         int col = gridModel.getDim();
 
         CellView cell = new CellView(((Grid)model).getCell(row, col));

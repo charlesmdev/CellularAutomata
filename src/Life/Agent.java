@@ -5,15 +5,16 @@ public class Agent extends Cell {
     //TODO: During the update phase each cell updates its status.
     @Override
     public void update() {
-        if (status == 0) {
-            // Cell is dead
-            if (ambience == 3) {
-                super.setStatus(1);
+        int numLivingNeighbors = getAmbience(); // Get the number of living neighbors
+
+        // Determine the next state based on the current state and the number of living neighbors
+        if (getStatus() == 0) { // If the cell is currently dead
+            if (Society.rebirth.contains(numLivingNeighbors)) {
+                setStatus(1); // Bring the cell to life
             }
-        } else {
-            // Cell is alive
-            if (ambience < 2 || ambience > 3) {
-                super.setStatus(0);
+        } else { // If the cell is currently alive
+            if (!Society.death.contains(numLivingNeighbors)) {
+                setStatus(0); // Kill the cell
             }
         }
     }
@@ -27,7 +28,16 @@ public class Agent extends Cell {
                 numNeighbors++;
             }
         }
+        setAmbience(numNeighbors);
+    }
+    @Override
+    public void nextState() {
+    }
+    public void setAmbience(int numNeighbors) {
         this.ambience = numNeighbors;
+    }
+    public int getAmbience() {
+        return this.ambience;
     }
     //Ignore these methods, don't implement anything.
     @Override
@@ -38,11 +48,6 @@ public class Agent extends Cell {
     public void interact() {
 
     }
-    @Override
-    public void nextState() {
-
-    }
-
     @Override
     public void reset(boolean randomly) {
 

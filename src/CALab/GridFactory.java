@@ -4,8 +4,7 @@ import mvc.*;
 
 public class GridFactory implements AppFactory {
 
-    public Model makeModel() {return null;}
-
+    public Model makeModel() { return null; } //Make Model is returning null cannot initialize Grid model due to abstract
     public View makeView(Model model) {
         return new GridView(model);
     }
