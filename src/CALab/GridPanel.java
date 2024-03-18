@@ -10,12 +10,35 @@ public class GridPanel extends AppPanel {
     private JButton Run1;
     private JButton Run50;
     private JButton Clear;
+    private GridView gridView;
+
 
     public GridPanel(AppFactory factory) {
         super(factory);
 //        change = new JButton ("change");
 //        change.addActionListener(this);
 //        controlPanel.add(change);
+
+        // Ensure that the model is properly initialized
+        if (model == null) {
+            // If the model is not initialized, create it using the factory
+            model = factory.makeModel();
+        }
+
+        // Create GridView
+        gridView = new GridView(model);
+
+        //setView(gridView);
+        // Get the cell views from the GridView
+        CellView[][] cellViews = gridView.getCellViews();
+
+        // Set layout and add cell views to the panel
+        setLayout(new GridLayout(cellViews.length, cellViews[0].length));
+        for (CellView[] row : cellViews) {
+            for (CellView cellView : row) {
+                add(cellView);
+            }
+        }
 
         Run1 = new JButton("Run1");
         Run1.addActionListener(this);
@@ -64,7 +87,7 @@ public class GridPanel extends AppPanel {
 
     }
     public static void main(String[] args) {
-        AppFactory factory = new GridFactory();
+        //AppFactory factory = new GridFactory();
         AppPanel panel = new GridPanel(factory);
         panel.display();
     }
