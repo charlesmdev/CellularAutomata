@@ -34,6 +34,14 @@ public class AppPanel extends JPanel implements ActionListener, Subscriber {
         frame.setTitle(factory.getTitle());
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
     }
+    public void setView(View newView) {
+        remove(view); // Remove the current view from the panel
+        view = newView; // Assign the new view
+        add(controlPanel); // Add the control panel back to the panel
+        add(view); // Add the new view to the panel
+        revalidate(); // Revalidate the panel to reflect changes
+        repaint(); // Repaint the panel
+    }
 
     public AppPanel() {
         this(null);
