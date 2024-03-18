@@ -30,15 +30,6 @@ public class GridPanel extends AppPanel {
 
         //setView(gridView);
         // Get the cell views from the GridView
-        CellView[][] cellViews = gridView.getCellViews();
-
-        // Set layout and add cell views to the panel
-        setLayout(new GridLayout(cellViews.length, cellViews[0].length));
-        for (CellView[] row : cellViews) {
-            for (CellView cellView : row) {
-                add(cellView);
-            }
-        }
 
         Run1 = new JButton("Run1");
         Run1.addActionListener(this);
