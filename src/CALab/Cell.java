@@ -49,6 +49,12 @@ public abstract class Cell extends Publisher implements Serializable {
             setColor(Color.RED);
         }
     }
+    public void setRow(int row) {
+        this.row = row;
+    }
+    public void setCol(int col) {
+        this.col = col;
+    }
 
     public void unPartner() {
         if (partner != null) {

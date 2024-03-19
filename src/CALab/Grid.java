@@ -41,6 +41,8 @@ public abstract class Grid extends Model {
         for (int row = 0; row < cells.length; row++) {
             for (int col = 0; col < cells[row].length; col++) {
                 cells[row][col] = makeCell(true); // True or false?
+                cells[row][col].setRow(row);
+                cells[row][col].setCol(col);
                 //Finish getNeighbors
                 cells[row][col].setNeighbors(getNeighbors(cells[row][col], 1)); //Add parameters after getNeighbors() method implemented
             }
