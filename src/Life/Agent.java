@@ -21,21 +21,9 @@ public class Agent extends Cell {
 
     }
     //TODO: During the update phase each cell updates its status. Updates my state?
-    public Agent() {
-        super();
-    }
     @Override
     public void update() {
-<<<<<<< HEAD
-        if (getStatus() == 0) { //if agent is dead
-            color = Color.RED;
-        }
-        else {
-            color = Color.GREEN;
-        }
-=======
         nextState();
->>>>>>> cc73812b5600e3617891dcdd66e86501cd86ee40
     }
     //TODO:   During the observation phase each cells updates ambience.
     @Override
@@ -57,10 +45,12 @@ public class Agent extends Cell {
         if (getStatus() == 0) { // If the cell is currently dead
             if (Society.rebirth.contains(numLivingNeighbors)) {
                 setStatus(1); // Bring the cell to life
+                color = Color.GREEN;
             }
         } else { // If the cell is currently alive
             if (!Society.death.contains(numLivingNeighbors)) {
                 setStatus(0); // Kill the cell
+                color = Color.RED;
             }
         }
     }

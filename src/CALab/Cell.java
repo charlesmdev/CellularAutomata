@@ -9,7 +9,7 @@ public abstract class Cell extends Publisher implements Serializable {
 
     protected int row = 0, col = 0;
     protected int status = 0;
-    protected Color color = Color.GREEN;
+    protected Color color = Color.BLACK;
     protected Set<Cell> neighbors = new HashSet<Cell>();
     protected Grid myGrid = null;
     protected Cell partner = null;
@@ -50,7 +50,7 @@ public abstract class Cell extends Publisher implements Serializable {
         }
     }
     //TODO: Add getColor(); and getStatus(); method
-
+    public void setColor(Color color) { this.color = color; }
     public Color getColor() {
         return color;
     }

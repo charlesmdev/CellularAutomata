@@ -56,6 +56,11 @@ public abstract class Grid extends Model {
                 for (int col = 0; col < cells[row].length; col++) {
                     int ranStatus = random.nextInt(2) + 0;
                     cells[row][col].setStatus(ranStatus);
+                    if (ranStatus == 1) {
+                        cells[row][col].setColor(Color.GREEN);
+                    } else {
+                        cells[row][col].setColor(Color.RED);
+                    }
                 }
             }
         }else{
@@ -63,6 +68,7 @@ public abstract class Grid extends Model {
                 for (int row = 0; row < cells.length; row++) {
                     for (int col = 0; col < cells[row].length; col++) {
                         cells[row][col].setStatus(0);
+                        cells[row][col].setColor(Color.RED);
                     }
             }
             // notify subscribers
