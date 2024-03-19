@@ -15,15 +15,13 @@
 //}
 package Life;
 
-import CALab.Cell;
-import CALab.CellView;
-import CALab.GridFactory;
-import CALab.GridPanel;
+import CALab.*;
 import mvc.AppFactory;
 import mvc.AppPanel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LifePanel extends GridPanel {
 
@@ -33,10 +31,19 @@ public class LifePanel extends GridPanel {
         super(factory);
     }
 
-
+//Original
     public static void main(String[] args) {
         AppFactory factory = new LifeFactory();
         AppPanel panel = new LifePanel(factory);
         panel.display();
+    }
+//    public static void main(String[] args) {
+//        GridFactory factory = new LifeFactory();
+//        GridPanel panel = new GridPanel(factory);
+//        panel.display();
+//    }
+    @Override
+    public void update() { //Goes here after calling clear and populate.
+        ((GridView) view).update();
     }
 }
