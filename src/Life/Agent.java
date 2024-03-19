@@ -1,12 +1,34 @@
 package Life;
 
 import CALab.Cell;
+
+import java.awt.*;
+
 public class Agent extends Cell {
     private int ambience = 8;
+    private Color statusColor;
+
+    public Agent() {
+        statusColor = Color.BLACK; //default color
+    }
+
+    public Color getStatusColor() {
+        return statusColor;
+    }
+
+    public void setStatusColor(Color statusColor) {
+        this.statusColor = statusColor;
+
+    }
     //TODO: During the update phase each cell updates its status. Updates my state?
     @Override
     public void update() {
-
+        if (getStatus() == 0) { //if agent is dead
+            color = Color.RED;
+        }
+        else {
+            color = Color.GREEN;
+        }
     }
     //TODO:   During the observation phase each cells updates ambience.
     @Override
@@ -14,7 +36,7 @@ public class Agent extends Cell {
         // Count the number of living neighbors
         int numNeighbors = 0;
         for (Cell neighbor : neighbors) {
-            if (neighbor.getStatus() == 1) {
+            if (neighbor != null && neighbor.getStatus() == 1) {
                 numNeighbors++;
             }
         }

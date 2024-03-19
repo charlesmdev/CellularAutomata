@@ -37,9 +37,6 @@ public class LifePanel extends GridPanel {
         AppPanel panel = new LifePanel(factory);
         panel.display();
     }
-<<<<<<< HEAD
-}
-=======
 //    public static void main(String[] args) {
 //        GridFactory factory = new LifeFactory();
 //        GridPanel panel = new GridPanel(factory);
@@ -50,4 +47,3 @@ public class LifePanel extends GridPanel {
         ((GridView) view).update();
     }
 }
->>>>>>> f5a2153465e06df574329691cca6ceda37aff961
