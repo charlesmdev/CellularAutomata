@@ -73,6 +73,9 @@ public class GridPanel extends AppPanel {
         }
     }
 
+    public GridPanel() {
+        this(null);
+    }
     @Override
     public void update() {
 

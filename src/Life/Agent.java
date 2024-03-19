@@ -1,15 +1,41 @@
 package Life;
 
 import CALab.Cell;
+
+import java.awt.*;
+
 public class Agent extends Cell {
     private int ambience = 8;
+    private Color statusColor;
+
+    public Agent() {
+        statusColor = Color.BLACK; //default color
+    }
+
+    public Color getStatusColor() {
+        return statusColor;
+    }
+
+    public void setStatusColor(Color statusColor) {
+        this.statusColor = statusColor;
+
+    }
     //TODO: During the update phase each cell updates its status. Updates my state?
     public Agent() {
         super();
     }
     @Override
     public void update() {
+<<<<<<< HEAD
+        if (getStatus() == 0) { //if agent is dead
+            color = Color.RED;
+        }
+        else {
+            color = Color.GREEN;
+        }
+=======
         nextState();
+>>>>>>> cc73812b5600e3617891dcdd66e86501cd86ee40
     }
     //TODO:   During the observation phase each cells updates ambience.
     @Override
