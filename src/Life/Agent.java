@@ -4,9 +4,12 @@ import CALab.Cell;
 public class Agent extends Cell {
     private int ambience = 8;
     //TODO: During the update phase each cell updates its status. Updates my state?
+    public Agent() {
+        super();
+    }
     @Override
     public void update() {
-
+        nextState();
     }
     //TODO:   During the observation phase each cells updates ambience.
     @Override
