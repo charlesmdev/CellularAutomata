@@ -17,7 +17,7 @@ public class Agent extends Cell {
         // Count the number of living neighbors
         int numNeighbors = 0;
         for (Cell neighbor : neighbors) {
-            if (neighbor.getStatus() == 1) {
+            if (neighbor != null && neighbor.getStatus() == 1) {
                 numNeighbors++;
             }
         }
