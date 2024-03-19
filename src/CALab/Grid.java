@@ -66,8 +66,8 @@ public abstract class Grid extends Model {
                     }
             }
             // notify subscribers
-            notifySubscribers();
         }
+        notifySubscribers();
     }
 
 
