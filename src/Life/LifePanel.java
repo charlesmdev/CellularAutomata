@@ -32,16 +32,16 @@ public class LifePanel extends GridPanel {
     }
 
 //Original
-    public static void main(String[] args) {
-        AppFactory factory = new LifeFactory();
-        AppPanel panel = new LifePanel(factory);
-        panel.display();
-    }
 //    public static void main(String[] args) {
-//        GridFactory factory = new LifeFactory();
-//        GridPanel panel = new GridPanel(factory);
+//        AppFactory factory = new LifeFactory();
+//        AppPanel panel = new LifePanel(factory);
 //        panel.display();
 //    }
+    public static void main(String[] args) {
+        GridFactory factory = new LifeFactory();
+        GridPanel panel = new LifePanel(factory);
+        panel.display();
+    }
     @Override
     public void update() { //Goes here after calling clear and populate.
         ((GridView) view).update();
