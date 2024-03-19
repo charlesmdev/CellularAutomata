@@ -40,6 +40,15 @@ public abstract class Cell extends Publisher implements Serializable {
             }
         }
     }
+    public void toggleStatus() {
+        if (status == 0) {
+            status = 1; // Assuming 1 represents the "alive" state
+            setColor(Color.GREEN);
+        } else {
+            status = 0; // Assuming 0 represents the "dead" state
+            setColor(Color.RED);
+        }
+    }
 
     public void unPartner() {
         if (partner != null) {

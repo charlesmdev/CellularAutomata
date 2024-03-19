@@ -25,6 +25,7 @@ public class CellView extends JButton implements ActionListener, Subscriber {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        myCell.toggleStatus();
         myCell.nextState();
         update();
     }
