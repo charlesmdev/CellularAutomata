@@ -3,11 +3,12 @@ package CALab;
 import java.awt.*;
 import java.util.*;
 import java.io.*;
+
 import mvc.*;
 
 public abstract class Grid extends Model {
-    static private int time = 0;
-    protected int dim = 20;
+    public static int time = 0;
+    public static int dim = 20;
     protected Cell[][] cells;
 
     public int getDim() {
@@ -65,13 +66,13 @@ public abstract class Grid extends Model {
                     }
                 }
             }
-        }else{
-                // set the status of each cell to 0 (dead)
-                for (int row = 0; row < cells.length; row++) {
-                    for (int col = 0; col < cells[row].length; col++) {
-                        cells[row][col].setStatus(0);
-                        cells[row][col].setColor(Color.RED);
-                    }
+        } else {
+            // set the status of each cell to 0 (dead)
+            for (int row = 0; row < cells.length; row++) {
+                for (int col = 0; col < cells[row].length; col++) {
+                    cells[row][col].setStatus(0);
+                    cells[row][col].setColor(Color.RED);
+                }
             }
             // notify subscribers
         }
@@ -86,20 +87,38 @@ public abstract class Grid extends Model {
         Tricky part: cells in row/col 0 or dim - 1.
         The asker is not a neighbor of itself.
         */
-        Set<Cell> neighbors = new HashSet<>();
-        int askerRow = asker.getRow();
-        int askerCol = asker.getCol();
-        // Loop through cells within the specified radius
-        for (int row = Math.max(0, askerRow - radius); row <= Math.min(dim - 1, askerRow + radius); row++) {
-            for (int col = Math.max(0, askerCol - radius); col <= Math.min(dim - 1, askerCol + radius); col++) {
-                // Exclude the asker itself from the neighbors
-                if (row != askerRow || col != askerCol) {
-                    neighbors.add(cells[row][col]);
+//        Set<Cell> neighbors = new HashSet<>();
+//        int askerRow = asker.getRow();
+//        int askerCol = asker.getCol();
+//        // Loop through cells within the specified radius
+//        for (int row = Math.max(0, askerRow - radius); row <= Math.min(dim - 1, askerRow + radius); row++) {
+//            for (int col = Math.max(0, askerCol - radius); col <= Math.min(dim - 1, askerCol + radius); col++) {
+//                // Exclude the asker itself from the neighbors
+//                if (row != askerRow || col != askerCol) {
+//                    neighbors.add(cells[row][col]);
+//                }
+//            }
+//        }
+//        return neighbors; //Unsure if notifySubscribers(); should be here
+
+        Set<Cell> neighborhood = new HashSet<Cell>();
+        int centerRow = asker.getRow();
+        int centerCol = asker.getCol();
+        for (int dist = 1; dist <= radius; dist++) {
+            for (int row = centerRow - dist; row <= centerRow + dist; row++) {
+                for (int col = centerCol - dist; col <= centerCol + dist; col++) {
+                    if (row == centerRow && col == centerCol) continue; // Skip the asker itself
+                    if (row >= 0 && row < dim && col >= 0 && col < dim) {
+                        neighborhood.add(cells[row][col]); // Add the valid neighbor cell
+                    }
                 }
             }
         }
-        return neighbors; //Unsure if notifySubscribers(); should be here
+        return neighborhood;
     }
+
+
+
 
     // cell phases:
     public void observe() {
@@ -113,9 +132,10 @@ public abstract class Grid extends Model {
             }
         }
     }
+
     //During the (optional) interaction phase each cell interacts with a random neighbor.
-    public void interact () {
-            // ???
+    public void interact() {
+        // ???
         Random random = new Random();
         Set<Cell> neighbors = null;
         // Iterate through each cell in the grid
@@ -136,10 +156,11 @@ public abstract class Grid extends Model {
         }
         notifySubscribers(); //Unsure if notifySubscribers(); should be here
     }
+
     //In the update phase each cell changes its state according to information gathered in the previous phases.
     //Different CAs and different cell types within a CA may have different rules for how to update themselves.
-    public void update () {
-            // ???
+    public void update() {
+        // ???
         for (int row = 0; row < cells.length; row++) {
             for (int col = 0; col < cells[row].length; col++) {
                 cells[row][col].update();
@@ -147,7 +168,8 @@ public abstract class Grid extends Model {
         }
         notifySubscribers(); //Unsure if notifySubscribers(); should be here
     }
-    public void updateLoop ( int cycles){
+
+    public void updateLoop(int cycles) {
         observe();
         for (int cycle = 0; cycle < cycles; cycle++) {
             interact();
