@@ -46,11 +46,12 @@ public class AppPanel extends JPanel implements ActionListener, Subscriber {
     public AppPanel() {
         this(null);
     }
+
     public JMenuBar createMenuBar() {
         JMenuBar result = new JMenuBar();
         JMenu fileMenu = Utilities.makeMenu("File", new String[] {"New", "Save", "Open", "Quit"}, this);
         result.add(fileMenu);
-        JMenu editMenu = Utilities.makeMenu("Edit", new String[]{"Change"}, this);
+        JMenu editMenu = Utilities.makeMenu("Edit", new String[]{"Run1", "Run50", "Populate", "Clear"}, this);
         result.add(editMenu);
         JMenu helpMenu = Utilities.makeMenu("Help", new String[]{"About", "Help"}, this);
         result.add(helpMenu);
@@ -77,10 +78,6 @@ public class AppPanel extends JPanel implements ActionListener, Subscriber {
             else if (cmmd.equals("Quit")) {
                 Utilities.saveChanges(model);
                 System.exit(0);
-            }
-            else if(cmmd.equals("Change")) {
-                Command changeCommand = factory.makeEditCommand(model, cmmd);
-                changeCommand.execute();
             }
         }
         catch (Exception e){

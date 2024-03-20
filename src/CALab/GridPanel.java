@@ -48,6 +48,17 @@ public class GridPanel extends AppPanel {
         controlPanel.add(Clear);
     }
     @Override
+    public JMenuBar createMenuBar() {
+        JMenuBar result = new JMenuBar();
+        JMenu fileMenu = Utilities.makeMenu("File", new String[] {"New", "Save", "Open", "Quit"}, this);
+        result.add(fileMenu);
+        JMenu editMenu = Utilities.makeMenu("Edit", new String[]{"Run1", "Run50", "Populate", "Clear"}, this);
+        result.add(editMenu);
+        JMenu helpMenu = Utilities.makeMenu("Help", new String[]{"About", "Help"}, this);
+        result.add(helpMenu);
+        return result;
+    }
+    @Override
     public void actionPerformed(ActionEvent ae) {
         try {
             String cmmd = ae.getActionCommand();
@@ -66,6 +77,30 @@ public class GridPanel extends AppPanel {
             else if (cmmd.equals("Clear")) {
                 Command clearCommand = factory.makeEditCommand(model, cmmd);
                 clearCommand.execute();
+            }
+            else if(cmmd.equals("About")) {
+                Utilities.inform(factory.about());
+            }
+            else if (cmmd.equals("Help")) {
+                Utilities.inform(factory.getHelp());
+            }
+            if(cmmd.equals("Save")) {
+                Utilities.save(model, false);
+            }
+            else if (cmmd.equals("SaveAs")) {
+                Utilities.save(model, true);
+            }
+            else if (cmmd.equals("Open")) {
+                Model newModel = Utilities.open(model);
+            }
+            else if (cmmd.equals("New")) {
+                Utilities.saveChanges(model);
+                setModel(factory.makeModel());
+                model.setUnsavedChanges(false);
+            }
+            else if (cmmd.equals("Quit")) {
+                Utilities.saveChanges(model);
+                System.exit(0);
             }
         }
         catch (Exception e){
