@@ -12,11 +12,11 @@ public abstract class GridFactory implements AppFactory {
     public String getTitle() { return "CALab"; }
 
     public String[] getHelp() {
-        return new String[0];
+        return new String[] {"Click Clear to set all cells as dead. Click Populate to revive some cells. Click Run1 or Run50 to update the amount of times looped."};
     }
 
     public String about() {
-        return null;
+        return "Cellular Automata version 1.0. by Charles Manaois, Fnu Saad, & Ynha Nguyen";
     }
 
     public String[] getEditCommands() {
